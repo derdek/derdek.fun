@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\Localizate;
+use App\Http\Controllers\LocalizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,4 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'main');
+
+Route::middleware([Localizate::class])->group(function () {
+    
+    Route::view('/', 'main')
+        ->name('main');;
+
+    Route::get('/set-locale/{locale}', [LocalizationController::class, 'setLocale'])
+        ->name('locale');
+});
