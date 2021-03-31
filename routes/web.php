@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\Localizate;
-use App\Http\Controllers\LocalizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +13,12 @@ use App\Http\Controllers\LocalizationController;
 |
 */
 
-
-Route::middleware([Localizate::class])->group(function () {
-    
-    Route::view('/', 'main')
-        ->name('main');;
-
-    Route::get('/set-locale/{locale}', [LocalizationController::class, 'setLocale'])
-        ->name('locale');
+Route::get('/', function () {
+    return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
