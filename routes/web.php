@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProgramsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/programs',[ProgramsController::class, 'getPrograms'])->name('programs');
+
+Route::get('/program',[ProgramsController::class, 'getProgram'])->name('program');
 
 require __DIR__.'/auth.php';

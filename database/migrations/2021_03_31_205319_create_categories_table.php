@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name', 32);
             $table->foreignId('user_id');
+            $table->foreignId('program_id');
             $table->timestamps();
         });
     }

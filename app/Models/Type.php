@@ -17,5 +17,4 @@ class Type extends Model
         'created_at',
         'user_id',
     ];
-    
 }
