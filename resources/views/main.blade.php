@@ -42,7 +42,7 @@
               <div class="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
                 <a href="#" class="font-medium text-gray-500 hover:text-gray-900">Comming soon</a>
 
-                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
+                <a href="{{ route('login') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
               </div>
             </nav>
           </div>
