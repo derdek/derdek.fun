@@ -37,6 +37,9 @@ jobs:
       - name: Show containers
         run: docker ps
       
+      - name: Sleep 5 seconds
+        run: sleep 5s
+      
       - name: Migrate database
         run: docker-compose exec -T app php artisan migrate
       
