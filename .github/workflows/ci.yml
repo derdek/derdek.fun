@@ -12,7 +12,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: php-actions/composer@v5
-
+      
+      - name: Start project
+        run: docker-compose up -d
+      
+      - name: Seed database
+        run: docker-compose exec app php artisan db:seed --class PermissionsDemoSeeder
+      
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v2
         env:
