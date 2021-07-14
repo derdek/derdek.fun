@@ -40,7 +40,7 @@
                 </div>
               </div>
               <div class="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
-                <a href="#" class="font-medium text-gray-500 hover:text-gray-900">Comming soon</a>
+                <a href="{{ route('programs') }}" class="font-medium text-gray-500 hover:text-gray-900">Programs</a>
 
                 <a href="{{ route('login') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
               </div>
@@ -84,10 +84,10 @@
                 </div>
               </div>
               <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Comming soon</a>
+                <a href="{{ route('programs') }}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">Programs</a>
 
               </div>
-              <a href="#" class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100">
+              <a href="{{ route('login') }}" class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100">
                 Sign in
               </a>
             </div>
