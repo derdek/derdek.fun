@@ -28,8 +28,8 @@ jobs:
       - name: Start project
         run: docker-compose up -d
       
-      - name: Seed database
-        run: docker-compose exec -T app php artisan migrate:fresh
+      - name: Migrate database
+        run: docker-compose exec -T app php artisan migrate
       
       - name: Seed database
         run: docker-compose exec -T app php artisan db:seed --class PermissionsDemoSeeder
