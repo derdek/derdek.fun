@@ -27,7 +27,10 @@ jobs:
       
       - name: Start project
         run: docker-compose up -d
-      
+        
+      - name: Clear config
+        run: php artisan config:clear
+        
       - name: Migrate database
         run: docker-compose exec -T app php artisan migrate
       
