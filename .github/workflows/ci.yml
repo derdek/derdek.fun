@@ -15,7 +15,11 @@ jobs:
       
       - name: Install packages
         run: sudo composer install
+        
+      - name: Composer post install script
         run: sudo composer run-script post-root-package-install
+        
+      - name: Composer generate key script
         run: sudo composer run-script post-create-project-cmd
       
       - name: Start project
