@@ -30,7 +30,13 @@ jobs:
         
       - name: Clear config
         run: php artisan config:clear
-        
+      
+      - name: Show .env
+        run: cat .env
+      
+      - name: Show containers
+        run: docker ps
+      
       - name: Migrate database
         run: docker-compose exec -T app php artisan migrate
       
