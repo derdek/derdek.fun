@@ -17,7 +17,7 @@ jobs:
         run: docker-compose up -d
       
       - name: Seed database
-        run: docker-compose exec app php artisan db:seed --class PermissionsDemoSeeder
+        run: docker-compose exec -T app php artisan db:seed --class PermissionsDemoSeeder
       
       - name: PHPUnit Tests
         uses: php-actions/phpunit@v2
