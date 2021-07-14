@@ -21,6 +21,9 @@ jobs:
         
       - name: Composer generate key script
         run: sudo composer run-script post-create-project-cmd
+        
+      - name: Set permissions for storage folder
+        run: sudo chmod 777 -R storage/
       
       - name: Start project
         run: docker-compose up -d
