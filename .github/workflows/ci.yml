@@ -13,6 +13,9 @@ jobs:
 
       - uses: php-actions/composer@v5
       
+      - name: Install packages
+        run: composer install
+      
       - name: Start project
         run: docker-compose up -d
       
