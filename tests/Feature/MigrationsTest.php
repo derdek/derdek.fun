@@ -8,6 +8,8 @@ use Database\Seeders\PermissionsDemoSeeder;
 
 class MigrationsTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function testExistRoleSuperAdmin()
     {
         $this->assertDatabaseMissing('roles', ['name' => 'super-admin']);
