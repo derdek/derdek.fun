@@ -1,4 +1,4 @@
-![example workflow](https://github.com/derdek/derdek.fun/actions/workflows/ci.yml/badge.svg)
+![example workflow](https://github.com/derdek/derdek.fun/actions/workflows/laravel.yml/badge.svg)
 
 How run project:
 * docker-compose up -d
