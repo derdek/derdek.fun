@@ -107,7 +107,7 @@
         </div>
       </div>
       <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-        <img class="h-56 w-full object-contain md:mr-20 sm:h-72 md:h-96 lg:w-full lg:h-full" src="{{ asset('img/Photo.jpg') }}" alt="">
+        <img class="h-56 w-full object-contain md:mr-20 sm:h-72 md:h-96 lg:w-full lg:h-full" src="{{ asset('img/Photo.webp') }}" alt="">
       </div>
     </div>
   </body>
