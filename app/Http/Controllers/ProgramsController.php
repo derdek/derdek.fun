@@ -22,7 +22,7 @@ class ProgramsController extends Controller
         $programs = Program::select('programs.*', DB::raw('AVG(rate) as rating'))
                 ->leftJoin('rates','rates.program_id','=','programs.id')
                 ->groupBy('programs.id')
-                ->with(['type','category'])
+                ->with(['type','categories'])
                 ->simplePaginate(15);
         
         return view('programs.dashboard', ['programs' => $programs]);

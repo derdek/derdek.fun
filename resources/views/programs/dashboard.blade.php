@@ -33,7 +33,7 @@
                                     {{ $program->name }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    @foreach($program->category as $category)
+                                    @foreach($program->categories as $category)
                                         {{ $category->name }}
                                     @endforeach
                                 </td>
