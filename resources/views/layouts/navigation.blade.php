@@ -16,6 +16,25 @@
                         {{ __('Programs') }}
                     </x-nav-link>
                 </div>
+                @auth
+                    @can('edit programs')
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('categories')" :active="request()->routeIs('categories')">
+                                {{ __('Categories') }}
+                            </x-nav-link>
+                        </div>
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('types')" :active="request()->routeIs('types')">
+                                {{ __('Types') }}
+                            </x-nav-link>
+                        </div>
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('links')" :active="request()->routeIs('links')">
+                                {{ __('Links') }}
+                            </x-nav-link>
+                        </div>
+                    @endcan
+                @endauth
             </div>
             
             <!-- Settings Dropdown -->
@@ -50,7 +69,7 @@
                 </x-dropdown>
                 @endauth
                 @guest
-                    <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a href="{{ route('login') }}" class="font-medium text-indigo-600 hover:text-indigo-500">{{ __('Sign in') }}</a>
                 @endguest
             </div>
 

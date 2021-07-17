@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Programs') }}
+            {{ __('Links') }}
         </h2>
     </x-slot>
 
@@ -13,16 +13,10 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Program name
+                                    Title
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Category
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Type
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Rating
+                                    Url
                                 </th>
                                 @auth
                                     @can('edit programs')
@@ -34,26 +28,18 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @forelse ($programs as $program)
+                            @forelse ($links as $link)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {{ $program->name }}
+                                    {{ $link->title }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    @foreach($program->categories as $category)
-                                        {{ $category->name }}
-                                    @endforeach
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {{ $program->type->name }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {{ $program->rating }}
+                                    <a class="hover:text-blue-300 underline transition" href="{{ $link->link }}">{{ $link->title }}</a>
                                 </td>
                                 @auth
                                     @can('edit programs')
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            <a href="{{ route('program', $program->id) }}">Edit</a>
+                                            <a href="{{ route('link', $link->id) }}">Edit</a>
                                         </td>
                                     @endcan
                                 @endauth
@@ -70,5 +56,5 @@
         </div>
     </div>
     
-    {{ $programs->links() }}
+    {{ $links->links() }}
 </x-app-layout>

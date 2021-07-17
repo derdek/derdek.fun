@@ -1,20 +1,12 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace App\Http\Controllers;
 
 use App\Models\Program;
+use App\Models\Category;
+use App\Models\Link;
+use App\Models\Type;
 use Illuminate\Support\Facades\DB;
-/**
- * Description of ProgramsController
- *
- * @author derdek
- */
+
 class ProgramsController extends Controller
 {
     public function getPrograms(){
@@ -26,5 +18,21 @@ class ProgramsController extends Controller
                 ->simplePaginate(15);
         
         return view('programs.dashboard', ['programs' => $programs]);
+    }
+    
+    public function getProgram($id){
+        $program = Program::find($id)
+                ->with(['type', 'categories', 'links'])
+                ->first();
+        
+        $categories = Category::all();
+        $types = Type::all();
+        $links = Link::all();
+        return view('programs.edit', [
+            'program' => $program, 
+            'categories' => $categories, 
+            'types' => $types,
+            'links' => $links,
+        ]);
     }
 }

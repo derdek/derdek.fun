@@ -48,6 +48,24 @@ class TestProgramsSeeder extends Seeder
             'user_id' => $user->id,
         ]);
         
+        $atomLinkSite = Link::create([
+            'title' => 'Main site',
+            'link' => 'https://atom.io/',
+            'program_id' => $programAtom->id,
+        ]);
+        
+        $sponsorBlockChrome = Link::create([
+            'title' => 'Sponsor block Chrome',
+            'link' => 'https://chrome.google.com/webstore/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone',
+            'program_id' => $programSponsorBlock->id,
+        ]);
+        
+        $sponsorBlockFirefox = Link::create([
+            'title' => 'Sponsor block Firefox',
+            'link' => 'https://addons.mozilla.org/ru/firefox/addon/sponsorblock/',
+            'program_id' => $programSponsorBlock->id,
+        ]);
+        
         $programAtom->categories()->attach($categoryProgramming->id);
         
         $programSponsorBlock->categories()->attach($categoryForEveryDay->id);

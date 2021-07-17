@@ -28,4 +28,9 @@ class Program extends Model
     {
         return $this->belongsToMany(Category::class, 'programs_categories');
     }
+    
+    public function links()
+    {
+        return $this->hasMany(Link::class);
+    }
 }
