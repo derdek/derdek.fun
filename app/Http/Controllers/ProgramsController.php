@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Link;
 use App\Models\Type;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class ProgramsController extends Controller
 {
@@ -34,5 +35,24 @@ class ProgramsController extends Controller
             'types' => $types,
             'links' => $links,
         ]);
+    }
+    
+    public function updateProgram(Request $request, $id){
+        $validated = $request->validate([
+            'program-name' => 'required|max:255',
+            /*'links' => 'exists:link',
+            'types' => 'exists:type',
+            'categories' => 'exists:category',*/
+        ]);
+        
+        
+        $program = Program::find($id)
+                ->with(['type', 'categories', 'links'])
+                ->first();
+        
+        $program->name = $request->post('program-name');
+        $program->save();
+        
+        return redirect()->route('program', $id);
     }
 }

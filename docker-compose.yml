@@ -6,7 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
     image: derdek/php
-    container_name: app
     tty: true
     environment:
       SERVICE_NAME: app
@@ -23,7 +22,6 @@ services:
 
   webserver:
     image: nginx:alpine
-    container_name: webserver
     tty: true
     ports:
       - 10000:80
@@ -37,7 +35,6 @@ services:
 
   mysql:
     image: mysql:8
-    container_name: mysql
     tty: true
     environment:
       MYSQL_ROOT_PASSWORD: laravel
@@ -54,7 +51,6 @@ services:
   
   redis:
     image: redis:alpine
-    container_name: redis
     tty: true
     volumes:
       - redis_data:/data

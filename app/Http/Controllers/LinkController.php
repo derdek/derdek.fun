@@ -19,4 +19,19 @@ class LinkController extends Controller
             'link' => Link::find($id)->first(),
         ]);
     }
+    
+    public function updateLink(Request $request, $id){
+        $validated = $request->validate([
+            'link-title' => 'required|max:255',
+            'link-url' => 'required|max:255',
+        ]);
+        
+        $link = Link::find($id)->first();
+        
+        $link->title = $request->post('link-title');
+        $link->link = $request->post('link-url');
+        $link->save();
+        
+        return redirect()->route('link', $id);
+    }
 }

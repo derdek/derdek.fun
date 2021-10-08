@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Category') }}
+            {{ __('Link') }}
         </h2>
     </x-slot>
 
@@ -13,16 +13,22 @@
 
     <div class="mt-10 sm:mt-0">
         <div class="mt-5 md:mt-0">
-            <form action="#" method="POST">
+            <form action="{{ route('updateLink', $link->id) }}" method="POST">
+                @csrf
                 <div class="shadow overflow-hidden sm:rounded-md">
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
-                                <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <label for="link-title" class="block text-sm font-medium text-gray-700">Link title</label>
+                                <input type="text" name="link-title" id="link-title" autocomplete="link-title" value="{{ $link->title }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                            
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="link-url" class="block text-sm font-medium text-gray-700">Link url</label>
+                                <input type="text" name="link-url" id="link-url" autocomplete="link-url" value="{{ $link->link }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>
 
-                            <div class="col-span-6 sm:col-span-3">
+                            {{--<div class="col-span-6 sm:col-span-3">
                                 <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
                                 <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>
@@ -59,7 +65,7 @@
                             <div class="col-span-6 sm:col-span-3 lg:col-span-2">
                                 <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal</label>
                                 <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">

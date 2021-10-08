@@ -19,4 +19,17 @@ class TypeController extends Controller
             'type' => Type::find($id)->first(),
         ]);
     }
+    
+    public function updateType(Request $request, $id){
+        $validated = $request->validate([
+            'type-name' => 'required|max:255',
+        ]);
+        
+        $type = Type::find($id)->first();
+        
+        $type->name = $request->post('type-name');
+        $type->save();
+        
+        return redirect()->route('type', $id);
+    }
 }

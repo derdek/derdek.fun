@@ -26,17 +26,30 @@ Route::group(['middleware' => ['can:edit programs']], function () {
         ->where(['id' => '[0-9]+'])
         ->name('program');
     
+    Route::post('/program/{id}',[ProgramsController::class, 'updateProgram'])
+        ->where(['id' => '[0-9]+'])
+        ->name('updateProgram');
+    
     Route::get('/category/{id}',[CategoryController::class, 'getCategory'])
         ->where(['id' => '[0-9]+'])
         ->name('category');
+    Route::post('/category/{id}',[CategoryController::class, 'updateCategory'])
+        ->where(['id' => '[0-9]+'])
+        ->name('updateCategory');
     
     Route::get('/type/{id}',[TypeController::class, 'getType'])
         ->where(['id' => '[0-9]+'])
         ->name('type');
+    Route::post('/type/{id}',[TypeController::class, 'updateType'])
+        ->where(['id' => '[0-9]+'])
+        ->name('updateType');
     
     Route::get('/link/{id}',[LinkController::class, 'getLink'])
         ->where(['id' => '[0-9]+'])
         ->name('link');
+    Route::post('/link/{id}',[LinkController::class, 'updateLink'])
+        ->where(['id' => '[0-9]+'])
+        ->name('updateLink');
 });
 
 require __DIR__.'/auth.php';

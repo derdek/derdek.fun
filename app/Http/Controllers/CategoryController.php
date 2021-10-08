@@ -19,4 +19,17 @@ class CategoryController extends Controller
             'category' => Category::find($id)->first(),
         ]);
     }
+    
+    public function updateCategory(Request $request, $id){
+        $validated = $request->validate([
+            'category-name' => 'required|max:255',
+        ]);
+        
+        $category = Category::find($id)->first();
+        
+        $category->name = $request->post('category-name');
+        $category->save();
+        
+        return redirect()->route('category', $id);
+    }
 }
