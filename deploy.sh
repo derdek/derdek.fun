@@ -13,7 +13,7 @@
 #
 
 VERSION=`cat version`
-FOLDER="www${SITE_VERSION}"
+FOLDER="www${VERSION}"
 
 GITHUB_USER=derdek
 GITHUB_REPOSITORY=derdek.fun
@@ -32,29 +32,29 @@ git clone git@github.com:${GITHUB_USER}/${GITHUB_REPOSITORY}.git
 
 rm -Rf ${NEW_FOLDER}/*
 rm -Rf ${GITHUB_REPOSITORY}/.git
-mv ${GITHUB_REPOSITORY}/* ${NEW_SITE_FOLDER}
+mv ${GITHUB_REPOSITORY}/* ${NEW_FOLDER}
 rm -Rf ${GITHUB_REPOSITORY}
 
-cp .env ${NEW_SITE_FOLDER}/.env
+cp .env ${NEW_FOLDER}/.env
 
 docker run \
     --name composer \
     --rm \
-    --mount type=bind,source="$(pwd)"/.,target=/app \
+    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
     -d composer \
     composer install --no-interaction --no-dev --prefer-dist
 
 docker run \
     --name composer \
     --rm \
-    --mount type=bind,source="$(pwd)"/.,target=/app \
+    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
     -d composer \
     php artisan migrate --force
 
 docker run \
     --name composer \
     --rm \
-    --mount type=bind,source="$(pwd)"/.,target=/app \
+    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
     -d composer \
     php artisan optimize 
 
