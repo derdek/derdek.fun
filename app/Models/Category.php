@@ -17,4 +17,9 @@ class Category extends Model
         'created_at',
         'user_id',
     ];
+    
+    public function programs()
+    {
+        return $this->belongsToMany(Program::class, 'programs_categories');
+    }
 }

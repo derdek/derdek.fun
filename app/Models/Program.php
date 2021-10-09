@@ -11,7 +11,6 @@ class Program extends Model
     
     protected $fillable = [
         'name',
-        'category',
         'type',
     ];
     
@@ -25,8 +24,13 @@ class Program extends Model
         return $this->belongsTo(Type::class);
     }
     
-    public function category()
+    public function categories()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsToMany(Category::class, 'programs_categories');
+    }
+    
+    public function links()
+    {
+        return $this->hasMany(Link::class);
     }
 }
