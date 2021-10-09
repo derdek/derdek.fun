@@ -40,15 +40,24 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
+
+  deploy:  
     
+    needs: laravel-tests
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      
     - name: Install SSH Key
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: 'random text'
     
     - name: Adding Known Hosts
-      run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      run: ssh-keyscan -p 51254 -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     
     - name: Run deploy script
-      run: ssh root@185.25.118.72 -p 51254 "bash /root/fb_root/auto.derdek.fun/deploy.sh"
+      run: ssh root@185.25.118.72 -p 51254 "cd /root/fb_root/auto.derdek.fun/ && bash deploy.sh"
     
