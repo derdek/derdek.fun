@@ -1,10 +1,10 @@
-name: Laravel
+name: Deploy to server
 
 on:
   push:
-    branches: [ laravel ]
+    branches: [ master ]
   pull_request:
-    branches: [ laravel ]
+    branches: [ master ]
 
 jobs:
   laravel-tests:
