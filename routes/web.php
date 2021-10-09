@@ -8,7 +8,7 @@ use App\Http\Controllers\LinkController;
 
 Route::get('/', function () {
     return view('main');
-});
+})->name('main');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

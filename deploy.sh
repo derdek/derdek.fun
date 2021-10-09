@@ -54,9 +54,9 @@ docker run \
     --name migration_container \
     --rm \
     --network work-network \
-    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
+    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/www/${PROJECT_NAME}/www \
     -it derdek/php-fpm-8:1 \
-    php /app/artisan migrate --force
+    php /www/${PROJECT_NAME}/www/artisan migrate --force
 
 echo " === clear cache === "
 
@@ -64,9 +64,9 @@ docker run \
     --name optimizer \
     --rm \
     --network work-network \
-    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
+    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/www/${PROJECT_NAME}/www \
     -it derdek/php-fpm-8:1 \
-    php /app/artisan optimize 
+    php /www/${PROJECT_NAME}/www/artisan optimize 
 
 echo "optimized" 
 
@@ -74,9 +74,9 @@ docker run \
     --name optimizer \
     --rm \
     --network work-network \
-    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
+    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/www/${PROJECT_NAME}/www \
     -it derdek/php-fpm-8:1 \
-    php /app/artisan config:cache
+    php /www/${PROJECT_NAME}/www/artisan config:cache
 
 echo "config cached"
 
@@ -84,9 +84,9 @@ docker run \
     --name optimizer \
     --rm \
     --network work-network \
-    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
+    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/www/${PROJECT_NAME}/www \
     -it derdek/php-fpm-8:1 \
-    php /app/artisan route:cache
+    php /www/${PROJECT_NAME}/www/artisan route:cache
 
 echo "route cached"
 
