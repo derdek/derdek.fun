@@ -100,7 +100,7 @@
                 <span class="block text-2xl text-indigo-600">PHP Developer</span>
               </h1>
               <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                I am programming from 2013. My first programming language was python, after pascal. My first project was simple online game on php and js.
+                I am programming from 2013. My first programming language was pascal, after python. My first project was simple online game on php and js.
               </p>
             </div>
           </main>
