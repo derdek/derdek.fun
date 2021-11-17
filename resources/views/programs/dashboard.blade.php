@@ -36,8 +36,9 @@
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse ($programs as $program)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    {{ $program->name }}
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-900">
+                                    <a href="{{ route('programView', $program->id) }}">{{ $program->name }}</a>
+                                    
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                     @foreach($program->categories as $category)
