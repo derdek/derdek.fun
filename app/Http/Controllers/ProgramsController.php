@@ -22,7 +22,7 @@ class ProgramsController extends Controller
     }
     
     public function getProgram($id){
-        $program = Program::find($id)
+        $program = Program::where('id', $id)
                 ->with(['type', 'categories', 'links'])
                 ->first();
         
@@ -34,6 +34,16 @@ class ProgramsController extends Controller
             'categories' => $categories, 
             'types' => $types,
             'links' => $links,
+        ]);
+    }
+    
+    public function getProgramView($id){
+        $program = Program::where('id', $id)
+                ->with(['type', 'categories', 'links'])
+                ->first();
+        
+        return view('programs.view', [
+            'program' => $program,
         ]);
     }
     
