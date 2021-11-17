@@ -16,38 +16,41 @@ Route::get('/dashboard', function () {
 
 Route::get('/programs',[ProgramsController::class, 'getPrograms'])->name('programs');
 
+Route::get('/program/{id}',[ProgramsController::class, 'getProgramView'])
+        ->where(['id' => '[0-9]+'])
+        ->name('programView');
+
 Route::group(['middleware' => ['can:edit programs']], function () {
     
-    Route::get('/categories',[CategoryController::class, 'getCategories'])->name('categories');
-    Route::get('/types',[TypeController::class, 'getTypes'])->name('types');
-    Route::get('/links',[LinkController::class, 'getLinks'])->name('links');
+    Route::get('/edit/categories',[CategoryController::class, 'getCategories'])->name('categories');
+    Route::get('/edit/types',[TypeController::class, 'getTypes'])->name('types');
+    Route::get('/edit/links',[LinkController::class, 'getLinks'])->name('links');
     
-    Route::get('/program/{id}',[ProgramsController::class, 'getProgram'])
+    Route::get('/edit/program/{id}',[ProgramsController::class, 'getProgram'])
         ->where(['id' => '[0-9]+'])
         ->name('program');
-    
-    Route::post('/program/{id}',[ProgramsController::class, 'updateProgram'])
+    Route::post('/edit/program/{id}',[ProgramsController::class, 'updateProgram'])
         ->where(['id' => '[0-9]+'])
         ->name('updateProgram');
     
-    Route::get('/category/{id}',[CategoryController::class, 'getCategory'])
+    Route::get('/edit/category/{id}',[CategoryController::class, 'getCategory'])
         ->where(['id' => '[0-9]+'])
         ->name('category');
-    Route::post('/category/{id}',[CategoryController::class, 'updateCategory'])
+    Route::post('edit//category/{id}',[CategoryController::class, 'updateCategory'])
         ->where(['id' => '[0-9]+'])
         ->name('updateCategory');
     
-    Route::get('/type/{id}',[TypeController::class, 'getType'])
+    Route::get('/edit/type/{id}',[TypeController::class, 'getType'])
         ->where(['id' => '[0-9]+'])
         ->name('type');
-    Route::post('/type/{id}',[TypeController::class, 'updateType'])
+    Route::post('edit//type/{id}',[TypeController::class, 'updateType'])
         ->where(['id' => '[0-9]+'])
         ->name('updateType');
     
-    Route::get('/link/{id}',[LinkController::class, 'getLink'])
+    Route::get('/edit/link/{id}',[LinkController::class, 'getLink'])
         ->where(['id' => '[0-9]+'])
         ->name('link');
-    Route::post('/link/{id}',[LinkController::class, 'updateLink'])
+    Route::post('/edit/link/{id}',[LinkController::class, 'updateLink'])
         ->where(['id' => '[0-9]+'])
         ->name('updateLink');
 });
