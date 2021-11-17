@@ -17,6 +17,7 @@ class Program extends Model
     protected $hidden = [
         'created_at',
         'user_id',
+        'type_id',
     ];
     
     public function type()
@@ -32,5 +33,15 @@ class Program extends Model
     public function links()
     {
         return $this->hasMany(Link::class);
+    }
+    
+    public function rates()
+    {
+        return $this->hasMany(Rate::class);
+    }
+    
+    public function getAvgRate()
+    {
+        return $this->hasMany(Rate::class)->avg('rate');
     }
 }
