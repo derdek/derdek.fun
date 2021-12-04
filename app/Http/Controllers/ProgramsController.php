@@ -22,6 +22,44 @@ class ProgramsController extends Controller
         return view('programs.dashboard', ['programs' => $programs]);
     }
     
+    public function getSortedPrograms(Request $request, $sortBy){
+        
+        [$sortColumn, $sortType] = explode('-', $sortBy);
+        
+        if (
+                !in_array($sortColumn, ['categories','types','rating','programs'])
+                || empty($sortColumn)
+                || empty($sortType)
+        ) {
+            return route('programs');
+        }
+        
+        $programsQuery = Program::select('programs.*', DB::raw('AVG(rate) as rating'), 'categories.name as category_name', 'types.name as type_name')
+                ->leftJoin('rates','rates.program_id','=','programs.id')
+                ->groupBy('programs.id')
+                ->leftJoin('programs_categories', 'programs_categories.program_id','=','programs.id')
+                ->leftJoin('categories', 'categories.id','=','programs_categories.category_id')
+                ->leftJoin('types','types.id','=','programs.type_id')
+                ->with('categories','type');
+        
+        if($sortColumn == 'rating'){
+            $programsQuery->orderBy($sortColumn, $sortType);
+        }else{
+            $programsQuery->orderBy("$sortColumn.name", $sortType);
+        }
+        
+        $programs = $programsQuery->simplePaginate(15);
+        
+        return view(
+                'programs.dashboard',
+                [
+                    'programs' => $programs,
+                    'sortColumn' => $sortColumn,
+                    'sortType' => $sortType
+                ]
+            );
+    }
+    
     public function getProgram($id){
         $program = Program::where('id', $id)
                 ->with(['type', 'categories', 'links'])
