@@ -57,5 +57,5 @@ jobs:
       run: ssh-keyscan -p ${{ secrets.SERVER_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     
     - name: Run deploy script
-      run: ssh root@${{ secrets.SERVER_IP_ADDRESS }} -p ${{ secrets.SERVER_PORT }} "cd /root/fb_root/auto.derdek.fun/ && bash deploy.sh"
+      run: ssh root@${{ secrets.SERVER_IP_ADDRESS }} -p ${{ secrets.SERVER_PORT }} "cd /root/fb_root/derdek.fun/ && bash deploy.sh"
     
