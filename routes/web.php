@@ -14,7 +14,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/programs',[ProgramsController::class, 'getPrograms'])->name('programs');
+Route::get('/programs',[ProgramsController::class, 'getPrograms'])
+        ->name('programs');
+
+Route::get('/programs/{sortBy}',[ProgramsController::class, 'getSortedPrograms'])
+        ->name('sortedPrograms');
 
 Route::get('/program/{id}',[ProgramsController::class, 'getProgramView'])
         ->where(['id' => '[0-9]+'])
