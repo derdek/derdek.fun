@@ -11,13 +11,20 @@ use Illuminate\Http\Request;
 
 class ProgramsController extends Controller
 {
-    public function getPrograms(){
+    public function getPrograms(Request $request){
         
-        $programs = Program::select('programs.*', DB::raw('AVG(rate) as rating'))
+        $search = $request->get('search');
+        
+        $programsQuery = Program::select('programs.*', DB::raw('AVG(rate) as rating'))
                 ->leftJoin('rates','rates.program_id','=','programs.id')
                 ->groupBy('programs.id')
-                ->with(['type','categories'])
-                ->simplePaginate(15);
+                ->with(['type','categories']);
+        
+        if(!empty($search)){
+            $programsQuery->where('programs.name','like',"%$search%");
+        }
+        
+        $programs = $programsQuery->simplePaginate(15);
         
         return view('programs.dashboard', ['programs' => $programs]);
     }
