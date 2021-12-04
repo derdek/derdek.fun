@@ -47,7 +47,7 @@ docker run \
     --name composer \
     --rm \
     --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
-    -it composer \
+    -i composer \
     composer install --no-interaction --no-dev --prefer-dist
 
 echo " === install JavaScript modules === "
@@ -57,7 +57,7 @@ docker run \
     --rm \
     -w /app \
     --mount type=bind,source="$(pwd)"/,target=/app \
-    -it node:16.13.1-alpine3.14 \
+    -i node:16.13.1-alpine3.14 \
     sh -c "npm install && npm run prod"
 
 echo " === migrations === "
@@ -67,7 +67,7 @@ docker run \
     --rm \
     --network work-network \
     --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/www/${PROJECT_NAME}/www \
-    -it derdek/php-fpm-8:1 \
+    -i derdek/php-fpm-8:1 \
     php /www/${PROJECT_NAME}/www/artisan migrate --force
 
 echo " === clear cache === "
@@ -77,7 +77,7 @@ docker run \
     --rm \
     --network work-network \
     --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/www/${PROJECT_NAME}/www \
-    -it derdek/php-fpm-8:1 \
+    -i derdek/php-fpm-8:1 \
     php /www/${PROJECT_NAME}/www/artisan optimize 
 
 echo "optimized" 
@@ -87,7 +87,7 @@ docker run \
     --rm \
     --network work-network \
     --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/www/${PROJECT_NAME}/www \
-    -it derdek/php-fpm-8:1 \
+    -i derdek/php-fpm-8:1 \
     php /www/${PROJECT_NAME}/www/artisan config:cache
 
 echo "config cached"
@@ -97,7 +97,7 @@ docker run \
     --rm \
     --network work-network \
     --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/www/${PROJECT_NAME}/www \
-    -it derdek/php-fpm-8:1 \
+    -i derdek/php-fpm-8:1 \
     php /www/${PROJECT_NAME}/www/artisan route:cache
 
 echo "route cached"
