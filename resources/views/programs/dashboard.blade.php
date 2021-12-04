@@ -6,9 +6,13 @@
                     {{ __('Programs') }}
                 </h2>
             </div>
-            <div class="mx-2">
-                <a class="font-semibold text-xl text-gray-800 leading-tight border-2 px-2 py-1 rounded-md" href="{{ route("createProgramView") }}">Create Program</a>
-            </div>
+            @auth
+                @can('edit programs')
+                <div class="mx-2">
+                    <a class="font-semibold text-xl text-gray-800 leading-tight border-2 px-2 py-1 rounded-md" href="{{ route("createProgramView") }}">Create Program</a>
+                </div>
+                @endcan
+            @endauth
         </div>
     </x-slot>
 
