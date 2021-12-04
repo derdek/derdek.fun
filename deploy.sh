@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+set -e -u
+
 #
 # example project folder
 # /var/site
@@ -12,7 +14,7 @@
 #  need copy deploy.sh to ../../ ( from /var/site/derdek.fun/docker-config/ to /var/site )
 #
 
-PROJECT_NAME="auto.derdek.fun"
+PROJECT_NAME="derdek.fun"
 
 VERSION=`cat version`
 FOLDER="www${VERSION}"
@@ -39,7 +41,7 @@ rm -Rf ${GITHUB_REPOSITORY}
 
 cp .env ${NEW_FOLDER}/.env
 
-echo " === install dependencies === "
+echo " === install php dependencies === "
 
 docker run \
     --name composer \
@@ -47,6 +49,16 @@ docker run \
     --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
     -it composer \
     composer install --no-interaction --no-dev --prefer-dist
+
+echo " === install JavaScript modules === "
+
+docker run \
+    --name node \
+    --rm \
+    -w /app \
+    --mount type=bind,source="$(pwd)"/,target=/app \
+    -it node:16.13.1-alpine3.14 \
+    sh -c "npm install && npm run prod"
 
 echo " === migrations === "
 
