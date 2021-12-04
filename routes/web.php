@@ -55,4 +55,11 @@ Route::group(['middleware' => ['can:edit programs']], function () {
         ->name('updateLink');
 });
 
+Route::group(['middleware' => ['can:edit programs']], function () {
+    Route::get('/create/program',[ProgramsController::class, 'getCreateProgram'])
+        ->name('createProgramView');
+    Route::post('/create/program',[ProgramsController::class, 'createProgram'])
+        ->name('createProgram');
+});
+
 require __DIR__.'/auth.php';

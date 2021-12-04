@@ -1,8 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Programs') }}
-        </h2>
+        <div class="flex">
+            <div class="mr-2">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Programs') }}
+                </h2>
+            </div>
+            <div class="mx-2">
+                <a class="font-semibold text-xl text-gray-800 leading-tight border-2 px-2 py-1 rounded-md" href="{{ route("createProgramView") }}">Create Program</a>
+            </div>
+        </div>
     </x-slot>
 
     <div class="flex flex-col">
