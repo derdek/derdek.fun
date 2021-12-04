@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Program;
 use App\Models\Category;
 use App\Models\Link;
@@ -56,13 +57,37 @@ class ProgramsController extends Controller
         ]);
         
         
-        $program = Program::find($id)
-                ->with(['type', 'categories', 'links'])
+        $program = Program::where('id', $id)
                 ->first();
         
         $program->name = $request->post('program-name');
         $program->save();
         
         return redirect()->route('program', $id);
+    }
+    
+    public function createProgram(Request $request){
+        $validated = $request->validate([
+            'program-name' => 'required|string|max:255',
+            'type' => 'exists:types,id',
+        ]);
+        
+        $program = new Program();
+        
+        $program->name = $request->post('program-name');
+        $program->type_id = $request->post('type');
+        $program->user_id = auth()->user()->id;
+        $program->save();
+        $program->refresh();
+        
+        return redirect()->route('programView', $program->id);
+    }
+    
+    public function getCreateProgram(){
+        $types = Type::all();
+        
+        return view('programs.create', [
+            'types' => $types,
+        ]);
     }
 }
