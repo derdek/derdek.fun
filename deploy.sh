@@ -56,7 +56,7 @@ docker run \
     --name node \
     --rm \
     -w /app \
-    --mount type=bind,source="$(pwd)"/,target=/app \
+    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
     -i node:16.13.1-alpine3.14 \
     sh -c "npm install && npm run prod"
 
