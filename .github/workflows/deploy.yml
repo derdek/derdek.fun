@@ -54,8 +54,8 @@ jobs:
         known_hosts: 'random text'
     
     - name: Adding Known Hosts
-      run: ssh-keyscan -p 51254 -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      run: ssh-keyscan -p ${{ secrets.SERVER_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
     
     - name: Run deploy script
-      run: ssh root@185.25.118.72 -p 51254 "cd /root/fb_root/auto.derdek.fun/ && bash deploy.sh"
+      run: ssh root@${{ secrets.SERVER_IP_ADDRESS }} -p ${{ secrets.SERVER_PORT }} "cd /root/fb_root/auto.derdek.fun/ && bash deploy.sh"
     
