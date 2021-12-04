@@ -17,6 +17,9 @@
     </x-slot>
 
     @php
+        $sortColumn = $sortColumn ?? null;
+        $sortType = $sortType ?? null;
+        
         $isEmpty = empty($sortType) || empty($sortColumn);
         $isSortByPrograms = $isEmpty || ($sortType == 'desc' && $sortColumn == 'programs') || $sortColumn != 'programs';
         $isSortByCategories = $isEmpty || ($sortType == 'desc' && $sortColumn == 'categories') || $sortColumn != 'categories';
@@ -45,16 +48,52 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <a href="{{ route('sortedPrograms', 'programs-'.($isSortByPrograms ? 'asc' : 'desc')) }}">Program name</a>
+                                    <a href="{{ route('sortedPrograms', 'programs-'.($isSortByPrograms ? 'asc' : 'desc')) }}">
+                                        Program name 
+                                        @if($sortColumn == 'programs' && $sortType == 'asc')
+                                            <i class="fas fa-sort-down"></i>
+                                        @elseif($sortColumn == 'programs' && $sortType == 'desc')
+                                            <i class="fas fa-sort-up"></i>
+                                        @else
+                                            <i class="fas fa-sort"></i>
+                                        @endif
+                                    </a>
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <a href="{{ route('sortedPrograms', 'categories-'.($isSortByCategories ? 'asc' : 'desc')) }}">Category</a>
+                                    <a href="{{ route('sortedPrograms', 'categories-'.($isSortByCategories ? 'asc' : 'desc')) }}">
+                                        Category 
+                                        @if($sortColumn == 'categories' && $sortType == 'asc')
+                                            <i class="fas fa-sort-down"></i>
+                                        @elseif($sortColumn == 'categories' && $sortType == 'desc')
+                                            <i class="fas fa-sort-up"></i>
+                                        @else
+                                            <i class="fas fa-sort"></i>
+                                        @endif
+                                    </a>
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <a href="{{ route('sortedPrograms', 'types-'.($isSortByTypes ? 'asc' : 'desc')) }}">Type</a>
+                                    <a href="{{ route('sortedPrograms', 'types-'.($isSortByTypes ? 'asc' : 'desc')) }}">
+                                        Type 
+                                        @if($sortColumn == 'types' && $sortType == 'asc')
+                                            <i class="fas fa-sort-down"></i>
+                                        @elseif($sortColumn == 'types' && $sortType == 'desc')
+                                            <i class="fas fa-sort-up"></i>
+                                        @else
+                                            <i class="fas fa-sort"></i>
+                                        @endif
+                                    </a>
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <a href="{{ route('sortedPrograms', 'rating-'.($isSortByRating ? 'desc' : 'asc')) }}">Rating</a>
+                                    <a href="{{ route('sortedPrograms', 'rating-'.($isSortByRating ? 'desc' : 'asc')) }}">
+                                        Rating 
+                                        @if($sortColumn == 'rating' && $sortType == 'desc')
+                                            <i class="fas fa-sort-down"></i>
+                                        @elseif($sortColumn == 'rating' && $sortType == 'asc')
+                                            <i class="fas fa-sort-up"></i>
+                                        @else
+                                            <i class="fas fa-sort"></i>
+                                        @endif
+                                    </a>
                                 </th>
                                 @auth
                                     @can('edit programs')
