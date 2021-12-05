@@ -10,7 +10,14 @@
             <div class="border-t border-gray-200"></div>
         </div>
     </div>
-
+    
+    @php
+        $programSelectedCategoryIds = [];
+        foreach($program->categories as $category){
+            $programSelectedCategoryIds[] = $category->id;
+        }
+    @endphp
+    
     <div class="mt-10 sm:mt-0">
         <div class="mt-5 md:mt-0">
             <form action="{{ route('updateProgram', $program->id) }}" method="POST">
@@ -27,7 +34,14 @@
                                 <label for="categories" class="block text-sm font-medium text-gray-700">Category</label>
                                 <select id="categories" name="categories" autocomplete="categories" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" multiple>
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <option 
+                                            value="{{ $category->id }}"
+                                            @if(in_array($category->id, $programSelectedCategoryIds))
+                                                selected
+                                            @endif
+                                        >
+                                            {{ $category->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
