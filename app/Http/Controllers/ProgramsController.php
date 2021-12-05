@@ -92,10 +92,14 @@ class ProgramsController extends Controller
     }
     
     public function getProgramView($id){
-        $program = Program::where('id', $id)
-                ->with(['type', 'categories', 'links'])
-                ->whereNotNull('programs.published_at')
-                ->first();
+        $programQuery = Program::where('id', $id)
+                ->with(['type', 'categories', 'links']);
+        
+        if (auth()->guest() || !auth()->user()->can('edit programs')) {
+            $programQuery->whereNotNull('programs.published_at');
+        }
+        
+        $program = $programQuery->first();
         
         return view('programs.view', [
             'program' => $program,
@@ -141,8 +145,14 @@ class ProgramsController extends Controller
     public function createProgram(Request $request){
         $validated = $request->validate([
             'program-name' => 'required|string|max:255',
-            'type' => 'exists:types,id',
+            'type' => 'required|exists:types,id',
+            'category-name' => 'required|string|min:5|max:255',
         ]);
+        
+        $urls = $request->post('urls');
+        $urlTitles = $request->post('urlTitles');
+        
+        $categoryName = $request->post('category-name');
         
         $program = new Program();
         
@@ -152,14 +162,40 @@ class ProgramsController extends Controller
         $program->save();
         $program->refresh();
         
-        return redirect()->route('programView', $program->id);
+        if(!is_null($urls)){
+            foreach($urls as $i => $url){
+                if(empty($urlTitles[$i])){
+                    continue;
+                }
+                $link = new Link([
+                    'link' => $urls[$i],
+                    'title' => $urlTitles[$i],
+                ]);
+                $program->links()->save($link);
+            }
+        }
+        
+        if(!is_null($categoryName)){
+            $category = Category::where('name','=',$categoryName)->first();
+            if (is_null($category)){
+                $category = new Category([
+                    'name' => $categoryName,
+                    'user_id' => auth()->user()->id,
+                ]);
+            }
+            $program->categories()->save($category);
+        }
+        
+        return redirect()->route('program', $program->id);
     }
     
     public function getCreateProgram(){
         $types = Type::all();
+        $categories = Category::all();
         
         return view('programs.create', [
             'types' => $types,
+            'categories' => $categories,
         ]);
     }
 }
