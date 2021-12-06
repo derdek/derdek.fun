@@ -16,7 +16,7 @@ set -e -u
 
 PROJECT_NAME="derdek.fun"
 
-VERSION=`cat version`
+VERSION=$(cat version)
 
 GITHUB_USER=derdek
 GITHUB_REPOSITORY=derdek.fun
