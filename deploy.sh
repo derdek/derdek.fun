@@ -17,7 +17,6 @@ set -e -u
 PROJECT_NAME="derdek.fun"
 
 VERSION=`cat version`
-FOLDER="www${VERSION}"
 
 GITHUB_USER=derdek
 GITHUB_REPOSITORY=derdek.fun
@@ -78,9 +77,9 @@ docker run \
     --network work-network \
     --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/www/${PROJECT_NAME}/www \
     -i derdek/php-fpm-8:1 \
-    php /www/${PROJECT_NAME}/www/artisan optimize 
+    php /www/${PROJECT_NAME}/www/artisan optimize
 
-echo "optimized" 
+echo "optimized"
 
 docker run \
     --name optimizer \
