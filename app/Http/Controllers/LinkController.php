@@ -16,7 +16,7 @@ class LinkController extends Controller
     
     public function getLink($id){
         return view('links.edit', [
-            'link' => Link::find($id)->first(),
+            'link' => Link::where('id', $id)->first(),
         ]);
     }
     
@@ -26,7 +26,7 @@ class LinkController extends Controller
             'link-url' => 'required|max:255',
         ]);
         
-        $link = Link::find($id)->first();
+        $link = Link::where('id', $id)->first();
         
         $link->title = $request->post('link-title');
         $link->link = $request->post('link-url');

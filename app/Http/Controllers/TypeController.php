@@ -16,7 +16,7 @@ class TypeController extends Controller
     
     public function getType($id){
         return view('types.edit', [
-            'type' => Type::find($id)->first(),
+            'type' => Type::where('id', $id)->first(),
         ]);
     }
     
@@ -25,7 +25,7 @@ class TypeController extends Controller
             'type-name' => 'required|max:255',
         ]);
         
-        $type = Type::find($id)->first();
+        $type = Type::where('id', $id)->first();
         
         $type->name = $request->post('type-name');
         $type->save();
