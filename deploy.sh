@@ -103,4 +103,4 @@ echo "route cached"
 
 ln -sfT ${NEW_FOLDER} www
 
-docker restart php-fpm nginx
+docker restart php-fpm nginx_1
