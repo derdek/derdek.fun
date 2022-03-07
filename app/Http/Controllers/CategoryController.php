@@ -16,7 +16,7 @@ class CategoryController extends Controller
     
     public function getCategory($id){
         return view('categories.edit', [
-            'category' => Category::find($id)->first(),
+            'category' => Category::where('id', $id)->first(),
         ]);
     }
     
@@ -25,7 +25,7 @@ class CategoryController extends Controller
             'category-name' => 'required|max:255',
         ]);
         
-        $category = Category::find($id)->first();
+        $category = Category::where('id', $id)->first();
         
         $category->name = $request->post('category-name');
         $category->save();
