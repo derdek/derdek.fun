@@ -49,15 +49,15 @@ docker run \
     -i composer \
     composer install --no-interaction --no-dev --prefer-dist
 
-echo " === install JavaScript modules === "
+#~ echo " === install JavaScript modules === "
 
-docker run \
-    --name node \
-    --rm \
-    -w /app \
-    --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
-    -i node:16.13.1-alpine3.14 \
-    sh -c "npm install && npm run prod"
+#~ docker run \
+    #~ --name node \
+    #~ --rm \
+    #~ -w /app \
+    #~ --mount type=bind,source="$(pwd)"/${NEW_FOLDER},target=/app \
+    #~ -i node:16.13.1-alpine3.14 \
+    #~ sh -c "npm install && npm run prod"
 
 echo " === migrations === "
 
