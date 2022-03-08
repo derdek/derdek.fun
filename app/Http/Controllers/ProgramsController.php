@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 class ProgramsController extends Controller
 {
     public function getPrograms(Request $request){
-        
+        dd($request);
+        dd($_GET);
         $search = $request->search ?? null;
         
         $programsQuery = Program::select('programs.*', DB::raw('AVG(rate) as rating'))
