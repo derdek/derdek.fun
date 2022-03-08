@@ -13,7 +13,7 @@ class ProgramsController extends Controller
 {
     public function getPrograms(Request $request){
         
-        $search = $request->query('search');
+        $search = $request->search ?? null;
         
         $programsQuery = Program::select('programs.*', DB::raw('AVG(rate) as rating'))
                 ->leftJoin('rates','rates.program_id','=','programs.id')
@@ -25,7 +25,7 @@ class ProgramsController extends Controller
         }
         
         if(!empty($search)){
-            $programsQuery->where('programs.name', 'like', "%$search%");
+            $programsQuery->where('programs.name', 'LIKE', '%' . $search . '%');
         }
         
         $programs = $programsQuery->simplePaginate(15);
