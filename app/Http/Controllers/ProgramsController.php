@@ -13,7 +13,7 @@ class ProgramsController extends Controller
 {
     public function getPrograms(Request $request){
         
-        $search = $request->input('search');
+        $search = $request->query('search');
         
         $programsQuery = Program::select('programs.*', DB::raw('AVG(rate) as rating'))
                 ->leftJoin('rates','rates.program_id','=','programs.id')

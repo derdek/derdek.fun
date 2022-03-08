@@ -31,8 +31,7 @@
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 
-                <form class="relative flex w-full flex-wrap items-stretch mb-3" action="{{ route('programs') }}" method="GET">
-                    @csrf
+                <form class="relative flex w-full flex-wrap items-stretch mb-3" action="{{ route('programs') }}" method="GET" role="search">
                     <span class="z-10 h-full leading-snug font-normal absolute text-center text-gray-400 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
                       <i class="fas fa-search"></i>
                     </span>
@@ -41,6 +40,7 @@
                       placeholder="Atom"
                       value="{{ $search ?? '' }}"
                       name="search"
+                      id="search"
                       class="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:ring w-full pl-10"
                     />
                 </form>
