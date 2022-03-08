@@ -12,9 +12,7 @@ use Illuminate\Http\Request;
 class ProgramsController extends Controller
 {
     public function getPrograms(Request $request){
-        dd($_GET);
-        dd($request->query('search'));
-        $search = $request->search ?? null;
+        $search = $request->get('search');
         
         $programsQuery = Program::select('programs.*', DB::raw('AVG(rate) as rating'))
                 ->leftJoin('rates','rates.program_id','=','programs.id')
