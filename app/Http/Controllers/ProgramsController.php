@@ -25,12 +25,12 @@ class ProgramsController extends Controller
         }
         
         if(!empty($search)){
-            $programsQuery->where('programs.name','like',"%$search%");
+            $programsQuery->where('programs.name', 'like', "%$search%");
         }
         
         $programs = $programsQuery->simplePaginate(15);
         
-        return view('programs.dashboard', ['programs' => $programs]);
+        return view('programs.dashboard', ['programs' => $programs, 'search' => $search]);
     }
     
     public function getSortedPrograms(Request $request, $sortBy){
