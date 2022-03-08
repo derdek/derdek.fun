@@ -16,7 +16,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/programs',[ProgramsController::class, 'getPrograms'])
         ->name('programs');
-Route::post('/programs',[ProgramsController::class, 'getPrograms']);
 
 Route::get('/programs/{sortBy}',[ProgramsController::class, 'getSortedPrograms'])
         ->name('sortedPrograms');
