@@ -43,7 +43,7 @@
                       id="search"
                       class="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:ring w-full pl-10"
                     />
-                    <input type="submit" value="Submit"/>
+                    <input type="submit" name="submit" value="Submit"/>
                 </form>
                 
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
