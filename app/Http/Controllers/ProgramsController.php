@@ -2,34 +2,30 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Models\Program;
-use App\Models\Category;
-use App\Models\Link;
-use App\Models\Type;
+use App\Models\{Program, Category, Link, Type};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ProgramsController extends Controller
 {
     public function getPrograms(Request $request){
-        
-        $search = $request->search ?? null;
-        
+        $search = $request->get('search');
+
         $programsQuery = Program::select('programs.*', DB::raw('AVG(rate) as rating'))
                 ->leftJoin('rates','rates.program_id','=','programs.id')
                 ->groupBy('programs.id')
                 ->with(['type','categories']);
-        
+
         if (auth()->guest() || !auth()->user()->can('edit programs')) {
             $programsQuery->whereNotNull('programs.published_at');
         }
-        
+
         if(!empty($search)){
             $programsQuery->where('programs.name', 'LIKE', '%' . $search . '%');
         }
-        
+
         $programs = $programsQuery->simplePaginate(15);
-        
+
         return view('programs.dashboard', ['programs' => $programs, 'search' => $search]);
     }
     
