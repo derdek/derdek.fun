@@ -1,0 +1,24 @@
+name: Deploy to dev server
+
+on:
+  push:
+    branches: [ dev-server ]
+
+jobs:
+  deploy:  
+    runs-on: ubuntu-latest
+    
+    steps:
+      
+    - name: Install SSH Key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: 'random text'
+    
+    - name: Adding Known Hosts
+      run: ssh-keyscan -p ${{ secrets.SERVER_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+    
+    - name: Run deploy script
+      run: ssh root@${{ secrets.SERVER_IP_ADDRESS }} -p ${{ secrets.SERVER_PORT }} "cd /root/fb_root/dev.derdek.fun/ && bash deploy.sh"
+    
