@@ -7,9 +7,6 @@ services:
       dockerfile: Dockerfile
     image: derdek/php
     tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
     working_dir: /var/www
     depends_on:
       - mysql
@@ -37,20 +34,18 @@ services:
     image: mysql:8
     tty: true
     environment:
-      MYSQL_ROOT_PASSWORD: laravel
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: laravel
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql/
       - ./docker-config/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
-  
+
   redis:
-    image: redis:alpine
+    image: redis:7.0.8-alpine
     tty: true
     volumes:
       - redis_data:/data
