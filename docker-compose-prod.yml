@@ -1,6 +1,6 @@
 version: '3'
-services:
 
+services:
   app:
     build:
       context: .
@@ -15,20 +15,22 @@ services:
       - ./:/var/www
       - ./docker-config-prod/php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - app-network
+      app-network:
+        ipv4_address: 10.0.0.3
 
   webserver:
     image: nginx:alpine
     tty: true
     ports:
-      - 10000:80
+      - 5001:80
     volumes:
       - ./:/var/www
-      - ./docker-config-prod/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./docker-config-prod/nginx/:/etc/nginx/conf.d/
     depends_on:
       - app
     networks:
-      - app-network
+      app-network:
+        ipv4_address: 10.0.0.2
 
   mysql:
     image: mysql:8
@@ -42,7 +44,8 @@ services:
       - db_data:/var/lib/mysql/
       - ./docker-config-prod/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
-      - app-network
+      app-network:
+        ipv4_address: 10.0.0.4
 
   redis:
     image: redis:7.0.8-alpine
@@ -52,11 +55,17 @@ services:
       - ./docker-config-prod/redis/redis.conf:/usr/local/etc/redis/redis.conf
     command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
     networks:
-      - app-network
+      app-network:
+        ipv4_address: 10.0.0.5
+
 
 networks:
   app-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.0.0/16
+          gateway: 10.0.0.1
 
 volumes:
   redis_data:
