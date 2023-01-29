@@ -1,0 +1,65 @@
+version: '3'
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: derdek/php
+    tty: true
+    working_dir: /var/www
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./:/var/www
+      - ./docker-config-prod/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  webserver:
+    image: nginx:alpine
+    tty: true
+    ports:
+      - 10000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-config-prod/nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8
+    tty: true
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql/
+      - ./docker-config-prod/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+  redis:
+    image: redis:7.0.8-alpine
+    tty: true
+    volumes:
+      - redis_data:/data
+      - ./docker-config-prod/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  redis_data:
+    driver: local
+  db_data:
+    driver: local
