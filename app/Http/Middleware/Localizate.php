@@ -18,19 +18,18 @@ class Localizate
      */
     public function handle(Request $request, Closure $next)
     {
-        
+
         $locale = session('lang', null);
         if(is_null($locale)){
-          $locale = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+            $locale = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
 
-          if (!in_array($locale, config('app.locales') )) {
-            $locale = 'uk';
-          }
+            if (!in_array($locale, config('app.locales') )) {
+                $locale = 'uk';
+            }
         }
-        
+
         App::setLocale($locale);
-        
-        
+
         return $next($request);
     }
 }
